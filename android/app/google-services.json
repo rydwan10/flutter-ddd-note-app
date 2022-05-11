@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "501786608645",
+    "project_id": "rydwan-ddd",
+    "storage_bucket": "rydwan-ddd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501786608645:android:6084f72ba01879637f086c",
+        "android_client_info": {
+          "package_name": "com.rydwan.ddd_note_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501786608645-e1eee7lj0r23jbscc9u47m6olpfmmdru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rydwan.ddd_note_app",
+            "certificate_hash": "91e5facd295da4c15cfdc1ab7ba189d81e6be1fc"
+          }
+        },
+        {
+          "client_id": "501786608645-q36bn2q2vdgljhl7ql58g26sijeu26ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiuGM8Fqmcd4L_dIrU9s4dKUdGp-AQlH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501786608645-q36bn2q2vdgljhl7ql58g26sijeu26ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
