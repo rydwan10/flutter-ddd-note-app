@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:note_app_ddd/domain/core/errors.dart';
 
 import 'failures.dart';
 
@@ -7,6 +8,12 @@ import 'failures.dart';
 abstract class ValueObject<T> {
   const ValueObject();
   Either<ValueFailure<T>, T> get value;
+
+  /// Throws [UnexptectedValueError]j containing the [ValueFailure]
+  T getOrCrash() {
+    // Can use 'id' from dartz but it throws some closure error :(
+    return value.fold((l) => throw UnexpectedValueError(l), (r) => r);
+  }
 
   bool isValid() => value.isRight();
 
