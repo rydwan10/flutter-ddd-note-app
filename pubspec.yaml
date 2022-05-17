@@ -29,14 +29,15 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
-  firebase_auth: ^0.15.1+1
-  firebase_core: ^0.4.2+2
+  firebase_auth: ^3.3.18
+  firebase_core: ^1.17.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   freezed_annotation: ^2.0.1
-  google_sign_in: ^4.0.16
+  google_sign_in: ^5.3.1
   injectable: ^1.5.3
+  uuid: ^3.0.6
 
 dev_dependencies:
   build_runner: ^2.1.10

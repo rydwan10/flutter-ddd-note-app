@@ -6,10 +6,11 @@ import 'package:injectable/injectable.dart';
 import 'package:note_app_ddd/domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:note_app_ddd/domain/auth/i_auth_facade.dart';
+import 'package:note_app_ddd/domain/auth/user.dart' as UserModel;
 import 'package:note_app_ddd/domain/auth/value_objects.dart';
 import 'package:note_app_ddd/domain/core/errors.dart';
+import 'firebase_user_mapper.dart';
 
-@lazySingleton
 @Injectable(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
@@ -61,16 +62,18 @@ class FirebaseAuthFacade implements IAuthFacade {
   @override
   Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
     try {
-      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final googleAuthentication = await googleUser.authentication;
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuthentication =
+          await googleUser?.authentication;
 
-      final authCredential = GoogleAuthProvider.getCredential(
-          idToken: googleAuthentication.idToken,
-          accessToken: googleAuthentication.accessToken);
-
-      if (googleUser == null) {
+      if (googleAuthentication == null || googleUser == null) {
+        //throw PlatformException(code: "cancelled_by_user");
         return left(const AuthFailure.cancelledByUser());
       }
+
+      AuthCredential authCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuthentication.accessToken,
+          idToken: googleAuthentication.idToken);
       return _firebaseAuth
           .signInWithCredential(authCredential)
           .then((r) => right(unit));
@@ -78,4 +81,15 @@ class FirebaseAuthFacade implements IAuthFacade {
       return left(const AuthFailure.serverError());
     }
   }
+
+  @override
+  Future<Option<UserModel.User>> getSignedInUser() async {
+    return Future.value(optionOf(_firebaseAuth.currentUser?.toDomain()));
+  }
+
+  @override
+  Future<void> signOut() => Future.wait([
+        _googleSignIn.signOut(),
+        _firebaseAuth.signOut(),
+      ]);
 }

@@ -21,10 +21,8 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
             emailAddress: EmailAddress(""),
             password: Password(""),
             authFailureOrSuccessOption: none())) {
-    on<SignInFormEvent>((event, emit) {
-      // TODO: implement event handler
-      event.map(
-        // TODO refactor tanpa async* dan pakai emit instead of yield
+    on<SignInFormEvent>((event, emit) async {
+      await event.map(
         emailChanged: (e) {
           emit(state.copyWith(
               emailAddress: EmailAddress(e.emailStr),
