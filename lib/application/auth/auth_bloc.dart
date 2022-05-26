@@ -12,19 +12,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthFacade _authFacade;
 
   AuthBloc(this._authFacade) : super(const Initial()) {
-    on<AuthEvent>((event, emit) async {
-      event.map(authCheckRequested: (e) async {
-        final userOption = await _authFacade.getSignedInUser();
-        emit(
-          userOption.fold(
-            () => const AuthState.unauthenticated(),
-            (_) => const AuthState.authenticated(),
-          ),
+    on<AuthEvent>(
+      (event, emit) async {
+        event.map(
+          authCheckRequested: (e) async {
+            final userOption = await _authFacade.getSignedInUser();
+            emit(
+              userOption.fold(
+                () => const AuthState.unauthenticated(),
+                (_) => const AuthState.authenticated(),
+              ),
+            );
+          },
+          signedOut: (e) async {
+            await _authFacade.signOut();
+            emit(const AuthState.unauthenticated());
+          },
         );
-      }, signedOut: (e) async {
-        await _authFacade.signOut();
-        emit(const AuthState.unauthenticated());
-      });
-    });
+      },
+    );
   }
 }
