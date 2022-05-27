@@ -58,4 +58,5 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
         //     onData: (Either<NoteFailure, KtList<Note>> eventRes) {
         //   return eventRes.fold((l) => NoteWatcherState.loadFailure(l),
         //       (r) => NoteWatcherState.loadSuccess(r));
+
         // });
