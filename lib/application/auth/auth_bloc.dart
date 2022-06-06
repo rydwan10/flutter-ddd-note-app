@@ -14,7 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authFacade) : super(const Initial()) {
     on<AuthEvent>(
       (event, emit) async {
-        event.map(
+        await event.map(
           authCheckRequested: (e) async {
             final userOption = await _authFacade.getSignedInUser();
             emit(
@@ -25,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           },
           signedOut: (e) async {
+            //print("Signed out");
             await _authFacade.signOut();
             emit(const AuthState.unauthenticated());
           },

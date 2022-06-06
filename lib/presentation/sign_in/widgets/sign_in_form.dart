@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app_ddd/application/auth/auth_bloc.dart';
 import 'package:note_app_ddd/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
+import 'package:note_app_ddd/presentation/routes/router.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({Key? key}) : super(key: key);
@@ -32,7 +35,10 @@ class SignInForm extends StatelessWidget {
                 ),
               );
             }, (_) {
-              // TODO navigate this to home page
+              AutoRouter.of(context).push(const NotesOveriewRoute());
+              context
+                  .read<AuthBloc>()
+                  .add(const AuthEvent.authCheckRequested());
             })
           },
         );

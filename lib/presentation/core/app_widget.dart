@@ -34,6 +34,7 @@ class AppWidget extends StatelessWidget {
           ),
         ),
         home: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           routerDelegate: AutoRouterDelegate(_appRouter),
           routeInformationParser: _appRouter.defaultRouteParser(),
         ),

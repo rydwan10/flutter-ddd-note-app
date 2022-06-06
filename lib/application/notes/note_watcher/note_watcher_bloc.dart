@@ -41,8 +41,13 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
       }
 
       if (event is _NotesReceived) {
-        emit(event.failureOrNotes.fold((l) => NoteWatcherState.loadFailure(l),
-            (r) => NoteWatcherState.loadSuccess(r)));
+        print(event.failureOrNotes);
+        emit(
+          event.failureOrNotes.fold(
+            (l) => NoteWatcherState.loadFailure(l),
+            (r) => NoteWatcherState.loadSuccess(r),
+          ),
+        );
       }
     });
   }
