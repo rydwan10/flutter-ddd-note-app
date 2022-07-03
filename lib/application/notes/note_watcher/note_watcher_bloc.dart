@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -22,7 +21,7 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
   StreamSubscription<Either<NoteFailure, KtList<Note>>>?
       _noteStreamSubscription;
 
-  NoteWatcherBloc(this._noteRepository) : super(_Initial()) {
+  NoteWatcherBloc(this._noteRepository) : super(const _Initial()) {
     on<NoteWatcherEvent>((event, emit) async {
       if (event is _WatchAllStarted) {
         emit(const NoteWatcherState.loadInProgress());
@@ -41,7 +40,7 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
       }
 
       if (event is _NotesReceived) {
-        print(event.failureOrNotes);
+        //print(event.failureOrNotes);
         emit(
           event.failureOrNotes.fold(
             (l) => NoteWatcherState.loadFailure(l),

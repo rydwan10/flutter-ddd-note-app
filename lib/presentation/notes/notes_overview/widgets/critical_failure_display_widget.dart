@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:note_app_ddd/domain/notes/note_failure.dart';
@@ -14,7 +13,7 @@ class CriticalFailureDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Column(children: [
-      Text(
+      const Text(
         "😱",
         style: TextStyle(fontSize: 100),
       ),
@@ -28,7 +27,7 @@ class CriticalFailureDisplay extends StatelessWidget {
       ),
       TextButton(
         onPressed: () {
-          print('Sending email...');
+          //print('Sending email...');
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,

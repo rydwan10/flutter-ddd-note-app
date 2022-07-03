@@ -13,7 +13,7 @@ part 'note_actor_bloc.freezed.dart';
 class NoteActorBloc extends Bloc<NoteActorEvent, NoteActorState> {
   final INoteRepository _noteRepository;
 
-  NoteActorBloc(this._noteRepository) : super(_Initial()) {
+  NoteActorBloc(this._noteRepository) : super(const _Initial()) {
     on<NoteActorEvent>((event, emit) async {
       if (event is _Deleted) {
         emit(const NoteActorState.actionInProgress());

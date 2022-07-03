@@ -35,7 +35,7 @@ class SignInForm extends StatelessWidget {
                 ),
               );
             }, (_) {
-              AutoRouter.of(context).push(const NotesOveriewRoute());
+              AutoRouter.of(context).replace(const NotesOveriewRoute());
               context
                   .read<AuthBloc>()
                   .add(const AuthEvent.authCheckRequested());
@@ -52,7 +52,7 @@ class SignInForm extends StatelessWidget {
             margin: const EdgeInsets.only(
               top: 10,
             ),
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: ListView(
               children: [
                 const Text(

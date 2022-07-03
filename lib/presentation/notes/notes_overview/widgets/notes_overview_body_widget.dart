@@ -18,7 +18,7 @@ class NotesOverviewBody extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
           loadSuccess: (state) {
-            print(state.notes);
+            //print(state.notes);
             return ListView.builder(
               itemBuilder: (context, index) {
                 final note = state.notes[index];

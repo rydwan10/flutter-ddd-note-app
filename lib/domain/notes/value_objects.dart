@@ -26,7 +26,7 @@ class TodoName extends ValueObject<String> {
   @override
   final Either<ValueFailure<String>, String> value;
 
-  static const maxLength = 1000;
+  static const maxLength = 30;
 
   factory TodoName(String input) {
     assert(input != null);

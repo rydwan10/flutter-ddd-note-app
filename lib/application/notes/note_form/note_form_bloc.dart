@@ -21,8 +21,15 @@ class NoteFormBloc extends Bloc<NoteFormEvent, NoteFormState> {
   NoteFormBloc(this._noteRepository) : super(NoteFormState.initial()) {
     on<NoteFormEvent>((event, emit) async {
       if (event is _Initialized) {
-        emit(event.initialNoteOption.fold(() => state,
-            (initial) => state.copyWith(note: initial, isEditing: true)));
+        emit(
+          event.initialNoteOption.fold(
+            () => state,
+            (initial) => state.copyWith(
+              note: initial,
+              isEditing: true,
+            ),
+          ),
+        );
       }
 
       if (event is _BodyChanged) {

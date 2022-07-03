@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_ddd/application/auth/auth_bloc.dart';
 import 'package:note_app_ddd/injection.dart';
 import 'package:note_app_ddd/presentation/routes/router.dart';
-import 'package:note_app_ddd/presentation/sign_in/sign_in_page.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);

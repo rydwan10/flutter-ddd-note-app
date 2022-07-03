@@ -4,6 +4,7 @@ import 'package:note_app_ddd/application/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_ddd/application/notes/note_watcher/note_watcher_bloc.dart';
 import 'package:note_app_ddd/injection.dart';
+import 'package:note_app_ddd/presentation/notes/notes_overview/widgets/uncompleted_switch.dart';
 import 'package:note_app_ddd/presentation/routes/router.dart';
 
 import '../../../application/notes/note_actor/note_actor_bloc.dart';
@@ -30,7 +31,7 @@ class NotesOveriewPage extends StatelessWidget {
             listener: (context, state) {
               state.maybeMap(
                   unauthenticated: (_) {
-                    return AutoRouter.of(context).push(const SignInRoute());
+                    return AutoRouter.of(context).replace(const SignInRoute());
                   },
                   orElse: () {});
             },
@@ -68,16 +69,13 @@ class NotesOveriewPage extends StatelessWidget {
                   context.read<AuthBloc>().add(const AuthEvent.signedOut());
                 },
                 icon: const Icon(Icons.exit_to_app)),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.indeterminate_check_box),
-              ),
-            ],
+            actions: const [UncompletedSwitch()],
           ),
           body: const NotesOverviewBody(),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              AutoRouter.of(context).push(NoteFormRoute(editedNote: null));
+            },
             child: const Icon(Icons.add),
           ),
         ),

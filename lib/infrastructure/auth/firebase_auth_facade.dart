@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:note_app_ddd/domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:note_app_ddd/domain/auth/i_auth_facade.dart';
-import 'package:note_app_ddd/domain/auth/user.dart' as UserModel;
+import 'package:note_app_ddd/domain/auth/user.dart' as user_model;
 import 'package:note_app_ddd/domain/auth/value_objects.dart';
-import 'package:note_app_ddd/domain/core/errors.dart';
 import 'firebase_user_mapper.dart';
 
 @Injectable(as: IAuthFacade)
@@ -29,7 +27,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: emailAddressStr, password: passwordStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
@@ -49,7 +47,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: emailAddressStr, password: passwordStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_USER_NOT_FOUND' ||
           e.code == 'ERROR_WRONG_PASSWORD') {
         return left(const AuthFailure.emailAlreadyInUse());
@@ -77,13 +75,13 @@ class FirebaseAuthFacade implements IAuthFacade {
       return _firebaseAuth
           .signInWithCredential(authCredential)
           .then((r) => right(unit));
-    } on PlatformException catch (_) {
+    } on FirebaseAuthException catch (_) {
       return left(const AuthFailure.serverError());
     }
   }
 
   @override
-  Future<Option<UserModel.User>> getSignedInUser() async {
+  Future<Option<user_model.User>> getSignedInUser() async {
     return Future.value(optionOf(_firebaseAuth.currentUser?.toDomain()));
   }
 
